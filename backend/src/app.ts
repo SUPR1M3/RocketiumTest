@@ -14,12 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // Health check endpoint
-app.get('/health', (_req, res) => {
+app.get('/health', (_req: express.Request, res: express.Response) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // API Routes
-app.get('/api', (_req, res) => {
+app.get('/api', (_req: express.Request, res: express.Response) => {
   res.json({ 
     message: 'Canvas Editor API',
     version: '1.0.0',
