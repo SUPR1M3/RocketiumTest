@@ -105,8 +105,8 @@ cd frontend
 npm run dev
 ```
 
-The frontend will be available at `http://localhost:5173`
-The backend API will be available at `http://localhost:5000`
+The frontend will be available at `https://canvas-editor-frontend.onrender.com`
+The backend API will be available at `https://canvas-editor-backend.onrender.com`
 
 ## Testing
 
