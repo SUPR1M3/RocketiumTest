@@ -30,7 +30,7 @@ export const useSocket = (options: UseSocketOptions = {}) => {
       setError(null);
     });
 
-    socket.on('disconnect', (reason) => {
+    socket.on('disconnect', (_reason) => {
       setIsConnected(false);
     });
 

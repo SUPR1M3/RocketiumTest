@@ -37,7 +37,6 @@ export const DesignList: React.FC = () => {
         name: `Design ${designs.length + 1}`,
         width: 1080,
         height: 1080,
-        layers: [],
       });
       navigate(`/designs/${newDesign._id}`);
     } catch (err: any) {
