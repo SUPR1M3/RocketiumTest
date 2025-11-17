@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import { api } from './api';
 
 export interface Comment {
   _id: string;
@@ -35,8 +33,8 @@ export interface CreateCommentResponse {
 
 // Get all comments for a design
 export const getComments = async (designId: string, page = 1, limit = 50): Promise<GetCommentsResponse> => {
-  const response = await axios.get<GetCommentsResponse>(
-    `${API_BASE_URL}/designs/${designId}/comments`,
+  const response = await api.get<GetCommentsResponse>(
+    `/api/designs/${designId}/comments`,
     { params: { page, limit } }
   );
   return response.data;
@@ -44,8 +42,8 @@ export const getComments = async (designId: string, page = 1, limit = 50): Promi
 
 // Create a new comment
 export const createComment = async (designId: string, data: CreateCommentData): Promise<CreateCommentResponse> => {
-  const response = await axios.post<CreateCommentResponse>(
-    `${API_BASE_URL}/designs/${designId}/comments`,
+  const response = await api.post<CreateCommentResponse>(
+    `/api/designs/${designId}/comments`,
     data
   );
   return response.data;

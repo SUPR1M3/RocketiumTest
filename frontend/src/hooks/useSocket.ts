@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3000';
+// VITE_API_URL should be the base URL without /api (e.g., https://backend.com)
+// Socket.io doesn't use the /api path, so we use VITE_API_URL directly
+const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface UseSocketOptions {
   autoConnect?: boolean;
