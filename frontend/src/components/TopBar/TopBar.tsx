@@ -16,6 +16,8 @@ export const TopBar: React.FC = () => {
   const layers = useAppSelector((state) => state.design.layers);
   const historyIndex = useAppSelector((state) => state.design.historyIndex);
   const history = useAppSelector((state) => state.design.history);
+  const collaborators = useAppSelector((state) => state.design.collaborators);
+  
   const isSaving = useAppSelector((state) => state.ui.isSaving);
   
   const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -130,6 +132,7 @@ export const TopBar: React.FC = () => {
         </button>
         <div className="topbar-divider" />
         <h1 className="topbar-title">{currentDesign?.name || 'Untitled Design'}</h1>
+        <span className="topbar-collaborators">{collaborators.length} collaborators: {collaborators.join(', ')}</span>
         {isSaving && <span className="topbar-saving">Saving...</span>}
       </div>
 

@@ -10,6 +10,7 @@ interface DesignState {
   historyIndex: number;
   isLoading: boolean;
   error: string | null;
+  collaborators: string[];
 }
 
 const initialState: DesignState = {
@@ -20,6 +21,7 @@ const initialState: DesignState = {
   historyIndex: -1,
   isLoading: false,
   error: null,
+  collaborators: [],
 };
 
 const MAX_HISTORY = 20;
@@ -342,6 +344,18 @@ const designSlice = createSlice({
       state.layers = action.payload;
       // NO history update
     },
+
+    addCollaborators:(state, action: PayloadAction<string>) => {
+      state.collaborators.push(action.payload);
+    },
+
+    removeCollaborators:(state, action: PayloadAction<string>) => {
+      state.collaborators = state.collaborators.filter((collaborator) => collaborator !== action.payload);
+    },
+
+    setCollaborators:(state, action: PayloadAction<string[]>) => {
+      state.collaborators = action.payload;
+    },
   },
 });
 
@@ -367,6 +381,9 @@ export const {
   remoteDeleteLayer,
   remoteReorderLayer,
   remoteUpdateLayers,
+  addCollaborators,
+  removeCollaborators,
+  setCollaborators,
 } = designSlice.actions;
 
 export default designSlice.reducer;

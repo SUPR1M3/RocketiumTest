@@ -56,6 +56,9 @@ export const setupSocketHandlers = (io: SocketIOServer) => {
         userName,
         timestamp: new Date().toISOString(),
       });
+
+      // Send active users to all other users in the room
+      socket.to(`design:${designId}`).emit('active-users', { designId, users: Array.from(activeUsers.get(designId) || []) });
       
       // Send current active users to the joining user
       const users = Array.from(activeUsers.get(designId) || []);
@@ -77,6 +80,7 @@ export const setupSocketHandlers = (io: SocketIOServer) => {
           activeUsers.delete(designId);
         }
       }
+      socket.to(`design:${designId}`).emit('active-users', { designId, users: Array.from(activeUsers.get(designId) || []) });
       
       // Notify others that user left
       socket.to(`design:${designId}`).emit('user-left', {
@@ -168,6 +172,7 @@ export const setupSocketHandlers = (io: SocketIOServer) => {
             activeUsers.delete(designId);
           }
         }
+        socket.to(`design:${designId}`).emit('active-users', { designId, users: Array.from(activeUsers.get(designId) || []) });
         
         // Notify others
         socket.to(`design:${designId}`).emit('user-left', {

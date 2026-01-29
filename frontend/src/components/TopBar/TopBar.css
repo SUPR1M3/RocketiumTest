@@ -7,6 +7,12 @@
   gap: 16px;
 }
 
+.topbar-collaborators {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
 .topbar-left,
 .topbar-center,
 .topbar-right {

@@ -1,3 +1,30 @@
+.editor-connection-status {
+  height: 30px;
+  background: #a72e2e;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 16px;
+}
+.editor-connection-status-connected {
+  height: 30px;
+  background: #2d9e4a;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 16px;
+}
+
 .editor-layout {
   display: flex;
   flex-direction: column;

@@ -18,6 +18,7 @@ import {
   remoteUpdateLayer,
   remoteDeleteLayer,
   remoteUpdateLayers,
+  setCollaborators,
 } from '../../store/designSlice';
 import { designsApi } from '../../services/designsApi';
 import { useSocket } from '../../hooks/useSocket';
@@ -37,7 +38,6 @@ export const EditorPage: React.FC = () => {
   
   // Extract isConnected to trigger re-renders when it changes
   const isSocketConnected = socket.isConnected;
-  
   // Generate a unique user ID for this session (in a real app, use actual user ID)
   const userId = React.useMemo(() => `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, []);
   
@@ -163,6 +163,24 @@ export const EditorPage: React.FC = () => {
       socket.off('design-update', handleRemoteUpdate);
     };
   }, [socket.isConnected, userId, dispatch]);
+
+  useEffect(()=>{
+    if (!socket.isConnected) return;
+
+    const designId = currentDesign?._id;
+    if (!designId) return;
+
+
+    const handleActiveUsers = ({designId, users}: {designId: string, users: string[]}) => {
+      if (designId !== currentDesign?._id) return;
+      dispatch(setCollaborators(users));
+    };
+    socket.on('active-users', handleActiveUsers);
+
+    return () => {
+      socket.off('active-users', handleActiveUsers);
+    };
+  }, [currentDesign?._id, socket.isConnected, dispatch]);
   
   // Broadcast undo/redo changes to other users
   const layers = useAppSelector((state) => state.design.layers);
@@ -270,6 +288,7 @@ export const EditorPage: React.FC = () => {
   return (
     <SocketProvider value={socketContextValue}>
       <EditorLayout
+        connection={isSocketConnected ? 'connected' : 'disconnected'}
         topBar={<TopBar />}
         leftPanel={<LayersPanel />}
         canvas={<FabricCanvas />}
